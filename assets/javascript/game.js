@@ -35,11 +35,10 @@ $(document).ready(function() {
     var enemyChosen = false;
     var characterID;
     var enemyID;
-    var characterName;
     var enemyName;
-    var removeIndex;
-    var characterObject = [];
-    var enemyObject = [];
+    var characterObject = {};
+    var enemyObject = {};
+    var turn = 1;
 
     //place characters in character select screen
     function gameCharacters() {
@@ -66,14 +65,13 @@ $(document).ready(function() {
             characterID = $(this).children()[0].id;
             $.each(characterList, function(index) {
                 if (characterList[index].id === characterID) {
-                    characterObject.push(characterList[index]);
+                    characterObject = characterList[index];
                     //removeIndex = index;
                     //console.log(characterList);
                 }
             })
-            characterList.splice(characterList[removeIndex], 1);
-            console.log(characterList);
-            characterName = characterObject[0].name;
+            //characterList.splice(characterList[removeIndex], 1);
+            //console.log(characterList);
             $(".textbox p").remove();
             $(".textbox").prepend("<p>* Please select the tetrimino you wish to defeat.</p>");
         //then select enemy
@@ -86,7 +84,7 @@ $(document).ready(function() {
             enemyID = $(this).children()[0].id;
             $.each(characterList, function(index) {
                 if (characterList[index].id === enemyID) {
-                    enemyObject.push(characterList[index]);
+                    enemyObject = characterList[index];
                     //console.log(characterList[2]);
                     //removeIndex = index;
                     //console.log(removeIndex);
@@ -95,7 +93,7 @@ $(document).ready(function() {
             //console.log(characterList.splice(characterList[1], 1));
             //characterList.splice(characterList[1], 1);
             //console.log(characterList);
-            enemyName = enemyObject[0].name;
+            enemyName = enemyObject.name;
             $(".textbox p").remove();
             var questions = $("<div>");
             questions.addClass("questions");
@@ -116,17 +114,27 @@ $(document).ready(function() {
     function gameStart() {
         var options = $("<div>");
         options.addClass("options");
-        //options.append("<div class='options-items'><p>Attack</p><p>Restart</p></div>");
-        options.append("<div class='options-items'><span>Attack</span><span class='restart'>Restart</span></div>");
+        options.append("<div class='options-items'><span class='attack'>Attack</span><span class='restart'>Restart</span></div>");
         $(".menu").prepend(options);
         $(".textbox").css("width", "77%");
         $(".textbox div").remove();
         $(".textbox p").remove();
         $(".textbox").prepend("<p>* You have challenged the " + enemyName +
         " to a battle!</p>");
+        $(".attack").on("click", function() {
+            attack();
+        })
         $(".restart").on("click", function() {
             restart();
         })
+    }
+
+    function attack() {
+        $(".textbox p").remove();
+        $(".textbox").append("<p>* You attacked for " + characterObject.attackPower * turn + " damage.</p>");
+        $(".textbox").append("<p>* " + enemyName + " attacked for " + enemyObject.counterAttackPower + " damage.</p>");
+        turn++;
+        //console.log(characterObject.attackPower);
     }
 
     //reloads window
@@ -134,17 +142,6 @@ $(document).ready(function() {
         location.reload();
     }
 
-
-//     //attack enemy
-//     $(".attack").on("click", function() {
-//         //clear child elements
-//         $(".textbox").empty();
-//         $(".textbox").append("<p>* " + characterChosen + " attacked for " + damageNumber +
-//                             " damage.</p><p>* " + enemyCharacter + " attacked for " + damageNumber
-//                             + " damage.</p>");
-//         //change hp bar width
-//         //multiply current hp by 100 and divide by total hp
-//         //subtract number from current hp bar width
 //         var win = false;
 //         //if enemy hp is <= 0, win
 //         if (win) {
