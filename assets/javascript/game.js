@@ -39,6 +39,8 @@ $(document).ready(function() {
     var characterObject = {};
     var enemyObject = {};
     var turn = 1;
+    var playerHpElement;
+    var enemyHpElement;
 
     //place characters in character select screen
     function gameCharacters() {
@@ -59,25 +61,20 @@ $(document).ready(function() {
         //select your character first
         if (characterChosen === false && enemyChosen === false) {
             characterChosen = true;
-            $(this).addClass("active");
-            //var characterName = 
+            $(this).addClass("active player-character");
             //push object into character array
             characterID = $(this).children()[0].id;
             $.each(characterList, function(index) {
                 if (characterList[index].id === characterID) {
                     characterObject = characterList[index];
-                    //removeIndex = index;
-                    //console.log(characterList);
                 }
             })
-            //characterList.splice(characterList[removeIndex], 1);
-            //console.log(characterList);
             $(".textbox p").remove();
             $(".textbox").prepend("<p>* Please select the tetrimino you wish to defeat.</p>");
         //then select enemy
         } else if (characterChosen === true && enemyChosen === false) {
             enemyChosen = true;
-            $(this).addClass("active");
+            $(this).addClass("active enemy-character");
             //reset object for each enemy
             enemyObject = [];
             //push object into enemy array
@@ -85,21 +82,19 @@ $(document).ready(function() {
             $.each(characterList, function(index) {
                 if (characterList[index].id === enemyID) {
                     enemyObject = characterList[index];
-                    //console.log(characterList[2]);
-                    //removeIndex = index;
-                    //console.log(removeIndex);
                 }
             })
-            //console.log(characterList.splice(characterList[1], 1));
-            //characterList.splice(characterList[1], 1);
-            //console.log(characterList);
             enemyName = enemyObject.name;
             $(".textbox p").remove();
-            var questions = $("<div>");
-            questions.addClass("questions");
-            questions.append("<span class='continue'>Continue</span><span class='restart'>Restart</span>");
-            $(".textbox").prepend(questions);
-            $(".textbox").prepend("<p>* Are you sure you would like to continue with this match up?</p>");
+            if (turn === 1) {
+                var questions = $("<div>");
+                questions.addClass("questions");
+                questions.append("<span class='continue'>Continue</span><span class='restart'>Restart</span>");
+                $(".textbox").prepend(questions);
+                $(".textbox").prepend("<p>* Are you sure you would like to continue with this match up?</p>");
+            } else {
+                gameStart();
+            }
             //start battle
             $(".continue").on("click", function() {
                 gameStart();
@@ -130,27 +125,46 @@ $(document).ready(function() {
     }
 
     function attack() {
+        if (characterObject.hp > 0 && enemyObject.hp > 0) {
+            $(".textbox p").remove();
+            $(".textbox").append("<p>* You attacked for " + characterObject.attackPower * turn + " damage.</p>");
+            $(".textbox").append("<p>* " + enemyName + " attacked for " + enemyObject.counterAttackPower + " damage.</p>");
+            characterObject.hp = characterObject.hp - enemyObject.counterAttackPower;
+            enemyObject.hp = enemyObject.hp - (characterObject.attackPower * turn);
+            //selects player hp
+            playerHpElement = $(".player-character").children().children("span");
+            playerHpElement.text("HP " + characterObject.hp);
+            //selects enemy hp
+            enemyHpElement = $(".enemy-character").children().children("span");
+            enemyHpElement.text("HP " + enemyObject.hp);
+            turn++;
+        }
+        if (characterObject.hp > 0 && enemyObject.hp < 0) {
+            win();
+            turn++;
+        } else if (characterObject.hp <= 0 && enemyObject.hp > 0) {
+            lose();   
+        }
+    }
+
+    function win() {
+        enemyHpElement.text("HP 0");
         $(".textbox p").remove();
-        $(".textbox").append("<p>* You attacked for " + characterObject.attackPower * turn + " damage.</p>");
-        $(".textbox").append("<p>* " + enemyName + " attacked for " + enemyObject.counterAttackPower + " damage.</p>");
-        turn++;
-        //console.log(characterObject.attackPower);
+        $(".textbox").prepend("<p>* " + enemyName + " have been defeated!</p><p>* Please select the next tetrimino you wish to defeat.</p>");
+        $(".enemy-character").remove();
+        $(".options").remove();
+        $(".textbox").css("width", "100%");
+        enemyChosen = false;  
+    }
+
+    function lose() {
+        playerHpElement.text("HP 0");
+        $(".textbox p").remove();
+        $(".textbox").prepend("<p>* You have been defeated!</p><p>* Press restart to try again!</p>");
     }
 
     //reloads window
     function restart() {
         location.reload();
     }
-
-//         var win = false;
-//         //if enemy hp is <= 0, win
-//         if (win) {
-//             $(".textbox").empty();
-//             $(".textbox").append("<p>* You have defeated the enemy! Press restart to play again!</p>");
-//         } else {
-//             $(".textbox").empty();
-//             $(".textbox").append("<p>* You have been defeated by the enemy! Press restart to play again!</p>");        
-//         }
-//     })
-
  })
