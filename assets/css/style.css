@@ -37,7 +37,7 @@ p {
 }
 
 .choice-hover:hover {
-    border: 3px solid white;
+    /* border: 3px solid white; */
     cursor: pointer;
 }
 
@@ -56,6 +56,21 @@ p {
 
 .active {
     border: 3px solid white;
+}
+
+.pointer-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.pointer {
+    position: absolute;
+    top: -45px;
+}
+
+.pointer span {
+    margin-bottom: 2px;
 }
 
 .menu {

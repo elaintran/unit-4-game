@@ -68,11 +68,15 @@ $(document).ready(function() {
     }
     gameCharacters();
 
+    // $(".choice").hover(function() {
+    //     $(".player-container").show();
+    // })
+
     $(".choice").on("click", function() {
         //select your character first
         if (characterChosen === false && enemyChosen === false) {
             characterChosen = true;
-            $(this).addClass("active player-character");
+            $(this).addClass("player-character");
             //push object into character object
             characterID = $(this).children()[0].id;
             $.each(characterList, function(index) {
@@ -80,12 +84,29 @@ $(document).ready(function() {
                     characterObject = characterList[index];
                 }
             })
+
+            var pointerContainer = $("<div>");
+            pointerContainer.addClass("pointer-container");
+            
+            var pointer = $("<div>");
+            pointer.addClass("pointer");
+
+            var characterNumber = $("<span>");
+            characterNumber.text("P1");
+
+            var pointerDown = $("<i>");
+            pointerDown.addClass("fas fa-caret-down");
+
+            pointer.append(characterNumber).append(pointerDown);
+            pointerContainer.append(pointer);
+            $(this).prepend(pointerContainer);
+
             $(".textbox p").remove();
             $(".textbox").prepend("<p>* Please select the tetrimino you wish to defeat.</p>");
         //then select enemy
         } else if (characterChosen === true && enemyChosen === false) {
             enemyChosen = true;
-            $(this).addClass("active enemy-character");
+            $(this).addClass("enemy-character");
             //push object into enemy object
             enemyID = $(this).children()[0].id;
             $.each(characterList, function(index) {
@@ -94,6 +115,23 @@ $(document).ready(function() {
                 }
             })
             enemyName = enemyObject.name;
+
+            var pointerContainer = $("<div>");
+            pointerContainer.addClass("pointer-container");
+            
+            var pointer = $("<div>");
+            pointer.addClass("pointer");
+
+            var characterNumber = $("<span>");
+            characterNumber.text("CPU");
+
+            var pointerDown = $("<i>");
+            pointerDown.addClass("fas fa-caret-down");
+
+            pointer.append(characterNumber).append(pointerDown);
+            pointerContainer.append(pointer);
+            $(this).prepend(pointerContainer);
+
             $(".textbox p").remove();
             if (turn === 1) {
                 var questions = $("<div>");
