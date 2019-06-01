@@ -46,31 +46,17 @@ $(document).ready(function() {
     //place characters in character select screen
     function gameCharacters() {
         for (var i = 0; i < characterList.length; i++) {
-            var choice = $("<div>");
-            choice.addClass("choice choice-hover");
-            
-            var character = $("<div>");
-            character.attr("id", characterList[i].id);
-            
-            var characterImage = $("<img>");
-            characterImage.attr("src", characterList[i].image);
-            
-            var characterName = $("<p>");
-            characterName.text(characterList[i].name);
-            
-            var characterHP = $("<span>");
-            characterHP.text("HP " + characterList[i].hp);
-            
+            var choice = $("<div>").addClass("choice choice-hover");
+            var character = $("<div>").attr("id", characterList[i].id);
+            var characterImage = $("<img>").attr("src", characterList[i].image);
+            var characterName = $("<p>").text(characterList[i].name);
+            var characterHP = $("<span>").text("HP " + characterList[i].hp);
             character.append(characterImage).append(characterName).append(characterHP);
             choice.append(character);
             $(".character-select").append(choice);
         }
     }
     gameCharacters();
-
-    // $(".choice").hover(function() {
-    //     $(".player-container").show();
-    // })
 
     $(".choice").on("click", function() {
         //select your character first
@@ -85,18 +71,10 @@ $(document).ready(function() {
                 }
             })
 
-            var pointerContainer = $("<div>");
-            pointerContainer.addClass("pointer-container");
-            
-            var pointer = $("<div>");
-            pointer.addClass("pointer");
-
-            var characterNumber = $("<span>");
-            characterNumber.text("P1");
-
-            var pointerDown = $("<i>");
-            pointerDown.addClass("fas fa-caret-down");
-
+            var pointerContainer = $("<div>").addClass("pointer-container");
+            var pointer = $("<div>").addClass("pointer");
+            var characterNumber = $("<span>").text("P1");
+            var pointerDown = $("<i>").addClass("fas fa-caret-down");
             pointer.append(characterNumber).append(pointerDown);
             pointerContainer.append(pointer);
             $(this).prepend(pointerContainer);
@@ -116,35 +94,21 @@ $(document).ready(function() {
             })
             enemyName = enemyObject.name;
 
-            var pointerContainer = $("<div>");
-            pointerContainer.addClass("pointer-container");
-            
-            var pointer = $("<div>");
-            pointer.addClass("pointer");
-
-            var characterNumber = $("<span>");
-            characterNumber.text("CPU");
-
-            var pointerDown = $("<i>");
-            pointerDown.addClass("fas fa-caret-down");
+            var pointerContainer = $("<div>").addClass("pointer-container");
+            var pointer = $("<div>").addClass("pointer");
+            var characterNumber = $("<span>").text("CPU");
+            var pointerDown = $("<i>").addClass("fas fa-caret-down");
 
             pointer.append(characterNumber).append(pointerDown);
             pointerContainer.append(pointer);
             $(this).prepend(pointerContainer);
 
             $(".textbox p").remove();
+            //show on first turn only
             if (turn === 1) {
-                var questions = $("<div>");
-                questions.addClass("questions");
-                
-                var continueButton = $("<span>");
-                continueButton.addClass("continue");
-                continueButton.text("Continue");
-                
-                var restartButton = $("<span>");
-                restartButton.addClass("restart");
-                restartButton.text("Restart");
-                
+                var questions = $("<div>").addClass("questions");
+                var continueButton = $("<span>").addClass("continue").text("Continue");
+                var restartButton = $("<span>").addClass("restart").text("Restart");
                 questions.append(continueButton).append(restartButton);
                 $(".textbox").prepend(questions);
                 $(".textbox").prepend("<p>* Are you sure you would like to continue with this match up?</p>");
@@ -165,21 +129,12 @@ $(document).ready(function() {
     function gameStart() {
         $(".player-character").insertBefore($(".choice").first());
         $(".enemy-character").insertAfter($(".choice").first());
+        $("div").removeClass("choice-hover");
         
-        var options = $("<div>");
-        options.addClass("options");
-        
-        var optionItems = $("<div>");
-        optionItems.addClass("option-items");
-        
-        var attackButton = $("<span>");
-        attackButton.addClass("attack");
-        attackButton.text("Attack");
-        
-        var restartButton = $("<span>");
-        restartButton.addClass("restart");
-        restartButton.text("Restart");
-        
+        var options = $("<div>").addClass("options");
+        var optionItems = $("<div>").addClass("option-items");
+        var attackButton = $("<span>").addClass("attack").text("Attack");
+        var restartButton = $("<span>").addClass("restart").text("Restart");
         optionItems.append(attackButton).append(restartButton);
         options.append(optionItems);
         $(".menu").prepend(options);
@@ -233,6 +188,7 @@ $(document).ready(function() {
         enemyChosen = false;
         $(".enemy-character").remove();
         $(".options").remove();
+        $(".choice").addClass("hover");
         $(".textbox").css("width", "100%");
         $(".textbox p").remove();
         //change ending message
@@ -240,7 +196,6 @@ $(document).ready(function() {
             $(".textbox").prepend("<p>* " + enemyName + " have been defeated!</p><p>* Please select the next tetrimino you wish to defeat.</p>");
         } else {
             $(".textbox").prepend("<p>* You defeated all of the tetriminos!</p><p>* Would you like to play again?</p>");
-            $("div").removeClass("active");
             $("div").removeClass("choice-hover");
         }
     }
