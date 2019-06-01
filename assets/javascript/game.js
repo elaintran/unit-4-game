@@ -27,31 +27,51 @@ $(document).ready(function() {
         }
     ];
 
+    var characterChosen = false;
+    var enemyChosen = false;
+
     //place characters in character select
     function gameCharacters() {
         for (var i = 0; i < characterList.length; i++) {
             var choice = $("<div>");
             choice.addClass("choice");
-            choice.append("<img src='" + characterList[i].image + "'><p>" + characterList[i].name + "</p>");
+            choice.append("<img src='" + characterList[i].image + "'><p>" + characterList[i].name +
+            "</p><span>HP " + characterList[i].hp +"</span>");
             $(".character-select").append(choice);
         }
     }
     gameCharacters();
 
     $(".choice").on("click", function() {
-        $(this).addClass("active");
-        //removes text from textbox
-        $(".textbox p").remove();
-        $(".textbox").prepend("<p>* Please select the tetrimino you wish to defeat.</p>")
+        //select your character
+        if (characterChosen === false && enemyChosen === false) {
+            characterChosen = true;
+            $(this).addClass("active");
+            $(".textbox p").remove();
+            $(".textbox").prepend("<p>* Please select the tetrimino you wish to defeat.</p>");
+        //select enemy
+        } else if (characterChosen === true && enemyChosen === false) {
+            enemyChosen = true;
+            $(this).addClass("active");
+            $(".textbox p").remove();
+            var questions = $("<div>");
+            questions.addClass("questions");
+            questions.append("<div class='answer-container'><i class='fas fa-caret-right continue-caret'></i><p class='continue'>Continue</p></div><div class='answer-container'><i class='fas fa-caret-right restart-caret'></i><p class='restart'>Restart</p></div>");
+            $(".textbox").prepend(questions);
+            $(".textbox").prepend("<p>* Are you sure you would like to continue with this match up?</p>");
+            $(".continue").hover(function() {
+                $(".continue-caret").show();
+            }, function() {
+                $(".continue-caret").hide();
+            })
+            $(".restart").hover(function() {
+                $(".restart-caret").show();
+            }, function() {
+                $(".restart-caret").hide();
+            })
+        }
     })
 
-//     $(".start").on("click", function() {
-//         $(".character-select").hide();
-//         $(".start").hide();
-//         $(".options").show();
-//         $(".textbox").show();
-//         $(".textbox").append("<p>* You have been challenged by " + enemyCharacter + ".</p>")
-//     })
 
 //     //attack enemy
 //     $(".attack").on("click", function() {

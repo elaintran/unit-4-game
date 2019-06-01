@@ -10,7 +10,6 @@ p {
     transform: scaleX(.75);
     transform-origin: left;
     width: calc(100% / 0.75);
-    box-sizing: border-box;
 }
 
 .main-container {
@@ -32,9 +31,7 @@ p {
 .choice {
     position: relative;
     border: 3px solid transparent;
-    width: 120px;
-    height: 120px;
-    margin: 0 10px 40px;
+    margin: 0 10px 30px;
     text-align: center;
 }
 
@@ -48,120 +45,16 @@ p {
 }
 
 .choice p {
-    position: absolute;
-    bottom: 10px;
+    margin-bottom: 2px;
+}
+
+.choice span {
+    display: block;
+    margin-bottom: 15px;
 }
 
 .active {
     border: 3px solid white;
-}
-
-.enemy-character p {
-    text-transform: uppercase;
-}
-
-.enemy-hp-image {
-    width: 100%;
-    position: relative;
-}
-
-.enemy-hp-remaining {
-    position: absolute;
-    background-color: yellow;
-    z-index: 1;
-    top: 0;
-    width: 80%;
-    height: 15px;
-}
-
-.enemy-hp-full {
-    background-color: red;
-    width: 100%;
-    height: 15px;
-}
-
-
-.options {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.character {
-    margin-right: auto;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    width: 50%;
-}
-
-.hp-container {
-    width: 100%;
-}
-
-.hp-number {
-    text-align: center;
-    transform: scaleX(1);
-    font-size: 15px;
-}
-
-.hp-row {
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.hp-row p {
-    font-size: 13px;
-    letter-spacing: 3px;
-}
-
-.hp-image {
-    position: relative;
-    width: 100%;
-}
-
-.hp-remaining {
-    position: absolute;
-    top: 0;
-    background-color: yellow;
-    height: 15px;
-    width: 80%;
-    z-index: 1;
-}
-
-.hp-full {
-    top: 0;
-    background-color: red;
-    height: 15px;
-    width: 100%;
-}
-
-.button-container {
-    display: flex;
-    justify-content: flex-end;
-    width: 50%;
-}
-
-.button {
-    border: 3px solid orange;
-    color: orange;
-    margin-left: 20px;
-    padding: 6px 10px;
-}
-
-.button:first-child {
-    margin-left: 0;
-}
-
-.button:hover {
-    border-color: yellow;
-    color: yellow;
-    cursor: pointer;
-}
-
-.button p {
-    font-size: 17px;
 }
 
 .textbox {
@@ -172,6 +65,7 @@ p {
 }
 
 .textbox p {
+    box-sizing: border-box;
     padding: 0 40px;
 }
 
@@ -181,6 +75,43 @@ p {
     bottom: 10px;
     font-size: 25px;
 }
+
+.questions {
+    display: flex;
+    justify-content: center;
+    margin: 15px auto 0;
+    width: 50%;
+}
+
+.questions p {
+    padding: 0;
+    transform-origin: center;
+}
+
+.answer-container {
+    position: relative;
+    margin: 0 15px;
+}
+
+.continue-caret, .restart-caret {
+    position: absolute;
+    display: none;
+    bottom: 5px;
+    font-size: 17px;
+}
+
+.continue-caret {
+    left: 5px;
+}
+
+.restart-caret {
+    left: 0px;
+}
+
+.continue, .restart {
+    cursor: pointer;
+}
+
 
 .your-damage, .enemy-damage {
     display: inline-block;
@@ -192,9 +123,3 @@ p {
         width: 95%;
     }
 }
-
-/* @media screen and (max-width: 649px) {
-    .button {
-        margin-left: 10px;
-    }
-} */
