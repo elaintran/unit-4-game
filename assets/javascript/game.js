@@ -72,9 +72,7 @@ $(document).ready(function() {
             })
 
             //player selection
-            var p1 = "P1";
-            var characterElement = this;
-            addPointer(p1, characterElement);
+            addPointer("P1", this);
 
             $(".textbox p").remove();
             $(".textbox").append("<p>* Please select the tetrimino you wish to defeat.</p>");
@@ -93,9 +91,7 @@ $(document).ready(function() {
             enemyName = enemyObject.name;
 
             //enemy selection
-            var cpu = "CPU";
-            var characterElement = this;
-            addPointer(cpu, characterElement);
+            addPointer("CPU", this);
 
             $(".textbox p").remove();
             //show on first turn only
@@ -141,10 +137,10 @@ $(document).ready(function() {
         options.append(optionItems);
         $(".menu").prepend(options);
         
-        $(".textbox").css("width", "77%");
         $(".textbox div").remove();
         $(".textbox p").remove();
         $(".textbox").append("<p>* You have challenged the " + enemyName + " to a battle!</p>");
+        $(".textbox").css("width", "77%");
         
         $(".attack").on("click", function() {
             attack();
@@ -209,7 +205,6 @@ $(document).ready(function() {
             $(".restart").on("click", function() {
                 restart();
             })
-
             $(".no").on("click", function() {
                 $(".textbox p").remove();
                 $(".textbox div").remove();
