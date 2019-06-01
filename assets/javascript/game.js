@@ -35,6 +35,9 @@ $(document).ready(function() {
     var enemyChosen = false;
     var characterID;
     var enemyID;
+    var characterName;
+    var enemyName;
+    var removeIndex;
     var characterObject = [];
     var enemyObject = [];
 
@@ -58,28 +61,45 @@ $(document).ready(function() {
         if (characterChosen === false && enemyChosen === false) {
             characterChosen = true;
             $(this).addClass("active");
+            //var characterName = 
+            //push object into character array
             characterID = $(this).children()[0].id;
             $.each(characterList, function(index) {
                 if (characterList[index].id === characterID) {
                     characterObject.push(characterList[index]);
+                    //removeIndex = index;
+                    //console.log(characterList);
                 }
             })
+            characterList.splice(characterList[removeIndex], 1);
+            console.log(characterList);
+            characterName = characterObject[0].name;
             $(".textbox p").remove();
             $(".textbox").prepend("<p>* Please select the tetrimino you wish to defeat.</p>");
         //then select enemy
         } else if (characterChosen === true && enemyChosen === false) {
             enemyChosen = true;
             $(this).addClass("active");
+            //reset object for each enemy
+            enemyObject = [];
+            //push object into enemy array
             enemyID = $(this).children()[0].id;
             $.each(characterList, function(index) {
                 if (characterList[index].id === enemyID) {
                     enemyObject.push(characterList[index]);
+                    //console.log(characterList[2]);
+                    //removeIndex = index;
+                    //console.log(removeIndex);
                 }
             })
+            //console.log(characterList.splice(characterList[1], 1));
+            //characterList.splice(characterList[1], 1);
+            //console.log(characterList);
+            enemyName = enemyObject[0].name;
             $(".textbox p").remove();
             var questions = $("<div>");
             questions.addClass("questions");
-            questions.append("<p class='continue'>Continue</p><p class='restart'>Restart</p>");
+            questions.append("<span class='continue'>Continue</span><span class='restart'>Restart</span>");
             $(".textbox").prepend(questions);
             $(".textbox").prepend("<p>* Are you sure you would like to continue with this match up?</p>");
             //start battle
@@ -94,7 +114,19 @@ $(document).ready(function() {
     })
 
     function gameStart() {
-
+        var options = $("<div>");
+        options.addClass("options");
+        //options.append("<div class='options-items'><p>Attack</p><p>Restart</p></div>");
+        options.append("<div class='options-items'><span>Attack</span><span class='restart'>Restart</span></div>");
+        $(".menu").prepend(options);
+        $(".textbox").css("width", "77%");
+        $(".textbox div").remove();
+        $(".textbox p").remove();
+        $(".textbox").prepend("<p>* You have challenged the " + enemyName +
+        " to a battle!</p>");
+        $(".restart").on("click", function() {
+            restart();
+        })
     }
 
     //reloads window
@@ -124,8 +156,4 @@ $(document).ready(function() {
 //         }
 //     })
 
-//     //restart game
-//     $(".restart").on("click", function() {
-//         //restart window
-//     })
  })
