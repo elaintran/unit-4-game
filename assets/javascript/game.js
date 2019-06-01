@@ -56,4 +56,4 @@ $(document).ready(function() {
 //     $(".restart").on("click", function() {
 //         //restart window
 //     })
-// })
+ })
