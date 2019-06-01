@@ -139,7 +139,7 @@ p {
     color: yellow;
 }
 
-.continue, .restart {
+.continue, .restart, .no {
     cursor: pointer;
     display: inline-block;
     transform: scaleX(.75);

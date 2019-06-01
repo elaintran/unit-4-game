@@ -71,6 +71,7 @@ $(document).ready(function() {
                 }
             })
 
+            //player selection
             var pointerContainer = $("<div>").addClass("pointer-container");
             var pointer = $("<div>").addClass("pointer");
             var characterNumber = $("<span>").text("P1");
@@ -85,6 +86,7 @@ $(document).ready(function() {
         } else if (characterChosen === true && enemyChosen === false) {
             enemyChosen = true;
             $(this).addClass("enemy-character");
+            $("div").removeClass("choice-hover");
             //push object into enemy object
             enemyID = $(this).children()[0].id;
             $.each(characterList, function(index) {
@@ -94,11 +96,11 @@ $(document).ready(function() {
             })
             enemyName = enemyObject.name;
 
+            //enemy selection
             var pointerContainer = $("<div>").addClass("pointer-container");
             var pointer = $("<div>").addClass("pointer");
             var characterNumber = $("<span>").text("CPU");
             var pointerDown = $("<i>").addClass("fas fa-caret-down");
-
             pointer.append(characterNumber).append(pointerDown);
             pointerContainer.append(pointer);
             $(this).prepend(pointerContainer);
@@ -129,7 +131,6 @@ $(document).ready(function() {
     function gameStart() {
         $(".player-character").insertBefore($(".choice").first());
         $(".enemy-character").insertAfter($(".choice").first());
-        $("div").removeClass("choice-hover");
         
         var options = $("<div>").addClass("options");
         var optionItems = $("<div>").addClass("option-items");
@@ -167,7 +168,7 @@ $(document).ready(function() {
             enemyHpElement.text("HP " + enemyObject.hp);
             turn++;
         }
-        if (characterObject.hp > 0 && enemyObject.hp < 0) {
+        if (characterObject.hp > 0 && enemyObject.hp <= 0) {
             enemyRemaining--;
             win();
             turn++;
@@ -188,15 +189,28 @@ $(document).ready(function() {
         enemyChosen = false;
         $(".enemy-character").remove();
         $(".options").remove();
-        $(".choice").addClass("hover");
+        $(".choice").addClass("choice-hover");
         $(".textbox").css("width", "100%");
         $(".textbox p").remove();
         //change ending message
         if (enemyRemaining > 0) {
             $(".textbox").prepend("<p>* " + enemyName + " have been defeated!</p><p>* Please select the next tetrimino you wish to defeat.</p>");
         } else {
-            $(".textbox").prepend("<p>* You defeated all of the tetriminos!</p><p>* Would you like to play again?</p>");
             $("div").removeClass("choice-hover");
+            var questions = $("<div>").addClass("questions");
+            var yesButton = $("<span>").addClass("restart").text("Yes");
+            var noButton = $("<span>").addClass("no").text("No");
+            questions.append(yesButton).append(noButton);
+            $(".textbox").prepend(questions);     
+            $(".textbox").prepend("<p>* You defeated all of the tetriminos!</p><p>* Would you like to play again?</p>");
+            $(".restart").css("margin", "0 30px");
+            $(".no").css("margin", "0 30px");
+
+            $(".no").on("click", function() {
+                $(".textbox p").remove();
+                $(".textbox div").remove();
+                $(".textbox").append("<p>* Congrats on winning and thank you for playing!</p>");
+            })
         }
     }
 
