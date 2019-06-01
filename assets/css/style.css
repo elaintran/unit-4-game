@@ -88,34 +88,12 @@ p {
     transform-origin: center;
 }
 
-.answer-container {
-    position: relative;
-    margin: 0 15px;
-}
-
-.continue-caret, .restart-caret {
-    position: absolute;
-    display: none;
-    bottom: 5px;
-    font-size: 17px;
-}
-
-.continue-caret {
-    left: 5px;
-}
-
-.restart-caret {
-    left: 0px;
+.questions p:hover {
+    color: yellow;
 }
 
 .continue, .restart {
     cursor: pointer;
-}
-
-
-.your-damage, .enemy-damage {
-    display: inline-block;
-    transform: scaleY(.9);
 }
 
 @media screen and (max-width: 716px) {

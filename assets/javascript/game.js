@@ -2,24 +2,28 @@ $(document).ready(function() {
     var characterList = [
         {
             name: "T Block",
+            id: "t-block",
             image: "assets/images/t-block.png",
             hp: 100,
             attackPower: 5,
             counterAttackPower: 15,
         }, {
             name: "S Block",
+            id: "s-block",
             image: "assets/images/s-block.png",
             hp: 110,
             attackPower: 10,
             counterAttackPower: 20,
         }, {
             name: "Z Block",
+            id: "z-block",
             image: "assets/images/z-block.png",
             hp: 120,
             attackPower: 20,
             counterAttackPower: 25,
         }, {
             name: "O Block",
+            id: "o-block",
             image: "assets/images/o-block.png",
             hp: 130,
             attackPower: 30,
@@ -29,48 +33,74 @@ $(document).ready(function() {
 
     var characterChosen = false;
     var enemyChosen = false;
+    var characterID;
+    var enemyID;
+    var characterObject = [];
+    var enemyObject = [];
 
-    //place characters in character select
+    //place characters in character select screen
     function gameCharacters() {
         for (var i = 0; i < characterList.length; i++) {
+            var character = $("<div>");
+            character.attr("id", characterList[i].id);
+            character.append("<img src='" + characterList[i].image + "'><p>" + characterList[i].name +
+            "</p><span>HP " + characterList[i].hp +"</span>");
             var choice = $("<div>");
             choice.addClass("choice");
-            choice.append("<img src='" + characterList[i].image + "'><p>" + characterList[i].name +
-            "</p><span>HP " + characterList[i].hp +"</span>");
+            choice.append(character);
             $(".character-select").append(choice);
         }
     }
     gameCharacters();
 
     $(".choice").on("click", function() {
-        //select your character
+        //select your character first
         if (characterChosen === false && enemyChosen === false) {
             characterChosen = true;
             $(this).addClass("active");
+            characterID = $(this).children()[0].id;
+            $.each(characterList, function(index) {
+                if (characterList[index].id === characterID) {
+                    characterObject.push(characterList[index]);
+                }
+            })
             $(".textbox p").remove();
             $(".textbox").prepend("<p>* Please select the tetrimino you wish to defeat.</p>");
-        //select enemy
+        //then select enemy
         } else if (characterChosen === true && enemyChosen === false) {
             enemyChosen = true;
             $(this).addClass("active");
+            enemyID = $(this).children()[0].id;
+            $.each(characterList, function(index) {
+                if (characterList[index].id === enemyID) {
+                    enemyObject.push(characterList[index]);
+                }
+            })
             $(".textbox p").remove();
             var questions = $("<div>");
             questions.addClass("questions");
-            questions.append("<div class='answer-container'><i class='fas fa-caret-right continue-caret'></i><p class='continue'>Continue</p></div><div class='answer-container'><i class='fas fa-caret-right restart-caret'></i><p class='restart'>Restart</p></div>");
+            questions.append("<p class='continue'>Continue</p><p class='restart'>Restart</p>");
             $(".textbox").prepend(questions);
             $(".textbox").prepend("<p>* Are you sure you would like to continue with this match up?</p>");
-            $(".continue").hover(function() {
-                $(".continue-caret").show();
-            }, function() {
-                $(".continue-caret").hide();
+            //start battle
+            $(".continue").on("click", function() {
+                gameStart();
             })
-            $(".restart").hover(function() {
-                $(".restart-caret").show();
-            }, function() {
-                $(".restart-caret").hide();
+            //refresh window
+            $(".restart").on("click", function() {
+                restart();
             })
         }
     })
+
+    function gameStart() {
+
+    }
+
+    //reloads window
+    function restart() {
+        location.reload();
+    }
 
 
 //     //attack enemy
