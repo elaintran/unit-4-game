@@ -36,7 +36,7 @@ p {
     text-align: center;
 }
 
-.choice:hover {
+.choice-hover:hover {
     border: 3px solid white;
     cursor: pointer;
 }
@@ -83,7 +83,7 @@ p {
     cursor: pointer;
 }
 
-.options-items {
+.option-items {
     margin: 0 30px;
 }
 
@@ -98,6 +98,12 @@ p {
     box-sizing: border-box;
     padding: 0 40px;
     line-height: 1.5;
+}
+
+.textbox p span {
+    display: inline-block;
+    transform: scaleX(1.3);
+    font-size: 16px;
 }
 
 .textbox .fa-caret-down {
