@@ -5,36 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RPG Game</title>
+
+    <!--jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <!--Font-->
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    
 </head>
 <body>
-    <div class="game-container">
-        <div class="options">
-            <div class="character">
-                <p>Lucina</p>
-                <div class="hp-container">
-                    <p class="hp-number">80/100</p>
-                    <div class="hp-row">
-                        <p class="hp">HP</p>
-                        <div class="hp-image">
-                            <div class="hp-remaining"></div>
-                            <div class="hp-full"></div>
+    <div class="main-container">
+        <div class="game-container">
+                <div class="enemy-character">
+                    <p>Raikou</p>
+                    <div class="enemy-hp-image">
+                        <div class="enemy-hp-remaining"></div>
+                        <div class="enemy-hp-full"></div>
+                    </div>
+                    <!-- <div style="width: 100%;"> -->
+                        <img src="https://serebii.net/pokearth/sprites/crystal/243.png" style="width:25%; margin: auto;">
+                    <!-- </div> -->
+            </div>
+            <div class="options">
+                <div class="character">
+                    <p>Entei</p>
+                    <div class="hp-container">
+                        <p class="hp-number">80/100</p>
+                        <div class="hp-row">
+                            <p class="hp">HP</p>
+                            <div class="hp-image">
+                                <div class="hp-remaining"></div>
+                                <div class="hp-full"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="button-container">
+                    <div class="button"><p class="attack">Attack</p></div>
+                    <div class="button"><p class="restart">Restart</p></div>
+                </div>
             </div>
-            <div class="button-container">
-                <div class="button"><p class="attack">Attack</p></div>
-                <div class="button"><p class="restart">Restart</p></div>
+            <div class="textbox">
+                <p>* Raikou attacked for <span class="your-damage">10</span> damage.</p>
+                <p>* Entei attacked for <span class="enemy-damage">6</span> damage.</p>
             </div>
-        </div>
-        <div class="textbox">
-            <p>* Lucina attacked for 10 damage.</p>
-            <p>* Ike attacked for 6 damage.</p>
         </div>
     </div>
 
