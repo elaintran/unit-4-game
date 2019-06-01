@@ -1,27 +1,38 @@
 $(document).ready(function() {
     var characterList = [
         {
-            name: "character1",
+            name: "T Block",
             hp: 100,
             attackPower: 5,
             counterAttackPower: 15,
         }, {
-            name: "character2",
+            name: "L Block",
             hp: 110,
             attackPower: 10,
             counterAttackPower: 20,
         }, {
-            name: "character3",
+            name: "Z Block",
             hp: 120,
             attackPower: 20,
             counterAttackPower: 25,
         }, {
-            name: "character4",
+            name: "O Block",
             hp: 130,
             attackPower: 30,
             counterAttackPower: 30,
         }
     ];
+
+    //place characters in character select
+    function gameCharacters() {
+        for (var i = 0; i < characterList.length; i++) {
+            var choice = $("<div>");
+            choice.addClass("choice");
+            choice.append("<p>" + characterList[i].name + "</p>");
+            $(".character-select").append(choice);
+        }
+    }
+    gameCharacters();
 
 //     $(".start").on("click", function() {
 //         $(".character-select").hide();

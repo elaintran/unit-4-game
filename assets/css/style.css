@@ -22,7 +22,30 @@ p {
 .game-container {
     width: 650px;
     margin: auto;
-    /* margin: 20px auto; */
+}
+
+.character-select {
+    display: flex;
+    justify-content: center;
+}
+
+.choice {
+    position: relative;
+    border: 3px solid transparent;
+    width: 120px;
+    height: 120px;
+    margin: 0 10px 50px;
+    text-align: center;
+}
+
+.choice:hover {
+    border: 3px solid white;
+    cursor: pointer;
+}
+
+.choice p {
+    position: absolute;
+    bottom: 5px;
 }
 
 .enemy-character p {
