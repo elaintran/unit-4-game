@@ -206,6 +206,10 @@ $(document).ready(function() {
             $(".restart").css("margin", "0 30px");
             $(".no").css("margin", "0 30px");
 
+            $(".restart").on("click", function() {
+                restart();
+            })
+
             $(".no").on("click", function() {
                 $(".textbox p").remove();
                 $(".textbox div").remove();
