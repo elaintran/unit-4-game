@@ -2,21 +2,25 @@ $(document).ready(function() {
     var characterList = [
         {
             name: "T Block",
+            image: "assets/images/t-block.png",
             hp: 100,
             attackPower: 5,
             counterAttackPower: 15,
         }, {
-            name: "L Block",
+            name: "S Block",
+            image: "assets/images/s-block.png",
             hp: 110,
             attackPower: 10,
             counterAttackPower: 20,
         }, {
             name: "Z Block",
+            image: "assets/images/z-block.png",
             hp: 120,
             attackPower: 20,
             counterAttackPower: 25,
         }, {
             name: "O Block",
+            image: "assets/images/o-block.png",
             hp: 130,
             attackPower: 30,
             counterAttackPower: 30,
@@ -28,11 +32,18 @@ $(document).ready(function() {
         for (var i = 0; i < characterList.length; i++) {
             var choice = $("<div>");
             choice.addClass("choice");
-            choice.append("<p>" + characterList[i].name + "</p>");
+            choice.append("<img src='" + characterList[i].image + "'><p>" + characterList[i].name + "</p>");
             $(".character-select").append(choice);
         }
     }
     gameCharacters();
+
+    $(".choice").on("click", function() {
+        $(this).addClass("active");
+        //removes text from textbox
+        $(".textbox p").remove();
+        $(".textbox").prepend("<p>* Please select the tetrimino you wish to defeat.</p>")
+    })
 
 //     $(".start").on("click", function() {
 //         $(".character-select").hide();
