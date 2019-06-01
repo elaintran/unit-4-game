@@ -163,6 +163,9 @@ $(document).ready(function() {
     })
 
     function gameStart() {
+        $(".player-character").insertBefore($(".choice").first());
+        $(".enemy-character").insertAfter($(".choice").first());
+        
         var options = $("<div>");
         options.addClass("options");
         
@@ -215,6 +218,8 @@ $(document).ready(function() {
             turn++;
         } else if (characterObject.hp <= 0 && enemyObject.hp > 0) {
             lose();   
+        } else if (characterObject.hp <= 0 && enemyObject.hp <= 0) {
+            tie();
         }
     }
 
@@ -244,5 +249,12 @@ $(document).ready(function() {
         playerHpElement.text("HP 0");
         $(".textbox p").remove();
         $(".textbox").prepend("<p>* You have been defeated!</p><p>* Press restart to try again.</p>");
+    }
+
+    function tie() {
+        playerHpElement.text("HP 0");
+        enemyHpElement.text("HP 0")
+        $(".textbox p").remove();
+        $(".textbox").prepend("<p>* You knocked each other out!</p><p>* Press restart to try again.</p>");
     }
  })
