@@ -63,17 +63,16 @@ $(document).ready(function() {
         if (characterChosen === false && enemyChosen === false) {
             characterChosen = true;
             $(this).addClass("player-character");
-            //push object into character object
+            //reassign object into character object
             characterID = $(this).children()[0].id;
             $.each(characterList, function(index) {
                 if (characterList[index].id === characterID) {
                     characterObject = characterList[index];
                 }
             })
-
-            //player selection
+            //player selection pointer
             addPointer("P1", this);
-
+            //update textbox
             $(".textbox p").remove();
             $(".textbox").append("<p>* Please select the tetrimino you wish to defeat.</p>");
         //then select enemy
@@ -81,7 +80,7 @@ $(document).ready(function() {
             enemyChosen = true;
             $(this).addClass("enemy-character");
             $("div").removeClass("choice-hover");
-            //push object into enemy object
+            //reassign object into enemy object
             enemyID = $(this).children()[0].id;
             $.each(characterList, function(index) {
                 if (characterList[index].id === enemyID) {
@@ -89,10 +88,9 @@ $(document).ready(function() {
                 }
             })
             enemyName = enemyObject.name;
-
-            //enemy selection
+            //enemy selection pointer
             addPointer("CPU", this);
-
+            //update textbox
             $(".textbox p").remove();
             //show on first turn only
             if (turn === 1) {
@@ -115,10 +113,10 @@ $(document).ready(function() {
         }
     })
 
-    function addPointer(number, element) {
+    function addPointer(characterType, element) {
         var pointerContainer = $("<div>").addClass("pointer-container");
         var pointer = $("<div>").addClass("pointer");
-        var characterNumber = $("<span>").text(number);
+        var characterNumber = $("<span>").text(characterType);
         var pointerDown = $("<i>").addClass("fas fa-caret-down");
         pointer.append(characterNumber).append(pointerDown);
         pointerContainer.append(pointer);
@@ -126,9 +124,11 @@ $(document).ready(function() {
     }
 
     function gameStart() {
+        //display player character first
         $(".player-character").insertBefore($(".choice").first());
+        //display enemy character second
         $(".enemy-character").insertAfter($(".choice").first());
-        
+        //creates battle menu
         var options = $("<div>").addClass("options");
         var optionItems = $("<div>").addClass("option-items");
         var attackButton = $("<span>").addClass("attack").text("Attack");
@@ -136,12 +136,12 @@ $(document).ready(function() {
         optionItems.append(attackButton).append(restartButton);
         options.append(optionItems);
         $(".menu").prepend(options);
-        
+        //update textbox
         $(".textbox div").remove();
         $(".textbox p").remove();
         $(".textbox").append("<p>* You have challenged the " + enemyName + " to a battle!</p>");
         $(".textbox").css("width", "77%");
-        
+        //battle options
         $(".attack").on("click", function() {
             attack();
         })
@@ -151,6 +151,7 @@ $(document).ready(function() {
     }
 
     function attack() {
+        //if both still alive
         if (characterObject.hp > 0 && enemyObject.hp > 0) {
             $(".textbox p").remove();
             $(".textbox").append("<p>* You attacked for <span>" + characterObject.attackPower * turn + "</span> damage.</p>");
@@ -194,6 +195,7 @@ $(document).ready(function() {
             $(".textbox").append("<p>* " + enemyName + " have been defeated!</p><p>* Please select the next tetrimino you wish to defeat.</p>");
         } else {
             $("div").removeClass("choice-hover");
+            //end game textbox
             var questions = $("<div>").addClass("questions");
             var yesButton = $("<span>").addClass("restart").text("Yes");
             var noButton = $("<span>").addClass("no").text("No");
@@ -201,7 +203,6 @@ $(document).ready(function() {
             $(".textbox").append("<p>* You defeated all of the tetriminos!</p><p>* Would you like to play again?</p>").append(questions);     
             $(".restart").css("margin", "0 30px");
             $(".no").css("margin", "0 30px");
-
             $(".restart").on("click", function() {
                 restart();
             })
