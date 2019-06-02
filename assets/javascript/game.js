@@ -5,29 +5,29 @@ $(document).ready(function() {
             id: "t-block",
             image: "assets/images/t-block.png",
             hp: 100,
-            attackPower: 5,
-            counterAttackPower: 15,
+            attackPower: 8,
+            counterAttackPower: 20,
         }, {
             name: "S Block",
             id: "s-block",
             image: "assets/images/s-block.png",
             hp: 110,
             attackPower: 10,
-            counterAttackPower: 20,
+            counterAttackPower: 18,
         }, {
             name: "Z Block",
             id: "z-block",
             image: "assets/images/z-block.png",
             hp: 120,
-            attackPower: 20,
-            counterAttackPower: 25,
+            attackPower: 12,
+            counterAttackPower: 16,
         }, {
             name: "O Block",
             id: "o-block",
             image: "assets/images/o-block.png",
             hp: 130,
-            attackPower: 30,
-            counterAttackPower: 30,
+            attackPower: 14,
+            counterAttackPower: 14,
         }
     ];
 

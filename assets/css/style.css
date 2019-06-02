@@ -12,6 +12,9 @@ p {
     width: calc(100% / 0.75);
 }
 
+span {
+    display: inline-block;
+}
 
 .main-container {
     height: 100vh;
@@ -37,7 +40,6 @@ p {
 }
 
 .choice-hover:hover {
-    /* border: 3px solid white; */
     cursor: pointer;
 }
 
@@ -52,10 +54,6 @@ p {
 .choice span {
     display: block;
     margin-bottom: 15px;
-}
-
-.active {
-    border: 3px solid white;
 }
 
 .pointer-container {
@@ -80,17 +78,15 @@ p {
 .options {
     width: 23%;
     border: 3px solid white;
-    border-right: 0px solid white;
+    border-right-width: 0px;
     padding: 20px 0;
 }
 
 .options span {
-    display: inline-block;
     transform: scaleX(.75);
     transform-origin: left;
     font-size: 18px;
     line-height: 1.5;
-    /* margin: 0 10px; */
 }
 
 .options span:hover {
@@ -116,7 +112,6 @@ p {
 }
 
 .textbox p span {
-    display: inline-block;
     transform: scaleX(1.3);
     font-size: 16px;
 }
@@ -141,7 +136,6 @@ p {
 
 .continue, .restart, .no {
     cursor: pointer;
-    display: inline-block;
     transform: scaleX(.75);
     font-size: 18px;
 }
