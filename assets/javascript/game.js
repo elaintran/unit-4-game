@@ -42,6 +42,8 @@ $(document).ready(function() {
     var playerHpElement;
     var enemyHpElement;
     var enemyRemaining = characterList.length - 1;
+    var width = $(document).width();
+    //console.log($(document).width());
 
     //place characters in character select screen
     function gameCharacters() {
@@ -131,16 +133,37 @@ $(document).ready(function() {
         //creates battle menu
         var options = $("<div>").addClass("options");
         var optionItems = $("<div>").addClass("option-items");
-        var attackButton = $("<span>").addClass("attack").text("Attack");
-        var restartButton = $("<span>").addClass("restart").text("Restart");
-        optionItems.append(attackButton).append(restartButton);
+        var menuButtonOne = $("<div>").addClass("menu-button");
+        var menuButtonTwo = $("<div>").addClass("menu-button");
+        var attackButton = $("<span>").text("Attack");
+        var restartButton = $("<span>").text("Restart");
+        //check width for mobile and browser view
+        function checkWidth() {
+            if ($(window).width() > 600) {
+                attackButton.addClass("attack");
+                restartButton.addClass("restart");
+                menuButtonOne.removeClass("attack");
+                menuButtonTwo.removeClass("restart");
+                $(".textbox").css("width", "77%");
+            } else {
+                attackButton.removeClass("attack");
+                restartButton.removeClass("restart");
+                menuButtonOne.addClass("attack");
+                menuButtonTwo.addClass("restart");
+                $(".textbox").css("width", "100%");
+            }
+        }
+        checkWidth();
+        $(window).resize(checkWidth);
+        menuButtonOne.append(attackButton);
+        menuButtonTwo.append(restartButton);
+        optionItems.append(menuButtonOne).append(menuButtonTwo);
         options.append(optionItems);
-        $(".menu").prepend(options);
+        $(".menu").append(options);
         //update textbox
         $(".textbox div").remove();
         $(".textbox p").remove();
         $(".textbox").append("<p>* You have challenged the " + enemyName + " to a battle!</p>");
-        $(".textbox").css("width", "77%");
         //battle options
         $(".attack").on("click", function() {
             attack();
