@@ -181,11 +181,12 @@ span {
     .option-items {
         margin: 0;
         display: flex;
+        justify-content: center;
     }
     .menu-button {
         border: 3px solid white;
         padding: 8px 18px;
-        margin-right: 5%;
+        margin: 0 3%;
     }
     .menu-button:hover {
         border-color: yellow;
@@ -218,7 +219,7 @@ span {
         width: 80px;
     }
     .menu-button {
-        padding: 8px;
+        padding: 6px 8px;
     }
     .textbox {
         padding: 16px 0;

@@ -138,7 +138,7 @@ $(document).ready(function() {
         var attackButton = $("<span>").text("Attack");
         var restartButton = $("<span>").text("Restart");
         //check width for mobile and browser view
-        //media queries can't add/remove classes 
+        //media queries can't add/remove classes so need to use javascript to check for resize
         function checkWidth() {
             if ($(window).width() > 606) {
                 attackButton.addClass("attack");
