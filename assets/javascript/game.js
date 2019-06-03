@@ -42,8 +42,6 @@ $(document).ready(function() {
     var playerHpElement;
     var enemyHpElement;
     var enemyRemaining = characterList.length - 1;
-    var width = $(document).width();
-    //console.log($(document).width());
 
     //place characters in character select screen
     function gameCharacters() {
@@ -139,7 +137,7 @@ $(document).ready(function() {
         var restartButton = $("<span>").text("Restart");
         //check width for mobile and browser view
         function checkWidth() {
-            if ($(window).width() > 600) {
+            if ($(window).width() > 606) {
                 attackButton.addClass("attack");
                 restartButton.addClass("restart");
                 menuButtonOne.removeClass("attack");
@@ -154,6 +152,7 @@ $(document).ready(function() {
             }
         }
         checkWidth();
+        //runs only on resize so need to call function first
         $(window).resize(checkWidth);
         menuButtonOne.append(attackButton);
         menuButtonTwo.append(restartButton);
@@ -207,14 +206,20 @@ $(document).ready(function() {
 
     function win() {
         enemyHpElement.text("HP 0");
-        enemyChosen = false;
         $(".enemy-character").remove();
         $(".options").remove();
         $(".choice").addClass("choice-hover");
-        $(".textbox").css("width", "100%");
+        //override the other window resize
+        function checkWidth() {
+            $(".textbox").css("width", "100%");
+        }
+        checkWidth();
+        $(window).resize(checkWidth);
         $(".textbox p").remove();
         //change ending message
         if (enemyRemaining > 0) {
+            //continue fighting if enemies remaining
+            enemyChosen = false;
             $(".textbox").append("<p>* " + enemyName + " have been defeated!</p><p>* Please select the next tetrimino you wish to defeat.</p>");
         } else {
             $("div").removeClass("choice-hover");
@@ -223,7 +228,7 @@ $(document).ready(function() {
             var yesButton = $("<span>").addClass("restart").text("Yes");
             var noButton = $("<span>").addClass("no").text("No");
             questions.append(yesButton).append(noButton);
-            $(".textbox").append("<p>* You defeated all of the tetriminos!</p><p>* Would you like to play again?</p>").append(questions);     
+            $(".textbox").append("<p>* You are the Tetris master!</p><p>* Would you like to play again?</p>").append(questions);     
             $(".restart").css("margin", "0 30px");
             $(".no").css("margin", "0 30px");
             $(".restart").on("click", function() {

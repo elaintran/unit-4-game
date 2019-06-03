@@ -154,7 +154,16 @@ span {
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 637px) {
+    p, .options span, .questions span {
+        font-size: 17px;
+    }
+    .choice span {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 606px) {
     .menu {
         display: block;
     }
@@ -185,21 +194,19 @@ span {
     }
     .textbox {
         margin-top: 20px;
+        width: 100%!important;
     }
 }
 
-@media screen and (max-width: 543px) {
-    p, .options span, .questions span {
-        font-size: 17px;
-    }
-    .choice span {
-        font-size: 15px;
+@media screen and (max-height: 520px) {
+    .main-container {
+        height: 520px;
     }
 }
 
 @media screen and (max-width: 535px) {
     .choice {
-        margin: 0 0 0 13px;
+        margin: 0 5px;
     }
     .choice span {
         font-size: 15px;
@@ -231,33 +238,57 @@ span {
     .choice span {
         font-size: 13px;
     }
+    .pointer {
+        top: -37px;
+    }
     .options {
         padding-top: 16px;
     }
     .textbox {
         margin-top: 6px;
-        height: 86px;
-    }
-    .textbox p {
-        font-size: 16px;
     }
     .textbox p span {
         transform: scaleX(1.1);
         font-size: 15px;
     }
+    .textbox .fa-caret-down {
+        bottom: 4px;
+        font-size: 21px;
+    }
 }
 
-@media screen and (max-width: 434px) {
+@media screen and (max-width: 436px) {
     p, .options span, .questions span, .textbox p {
         font-size: 13px;
     }
     .choice span {
         font-size: 11px;
     }
+    .textbox {
+        height: 86px;
+    }
     .textbox p span{
         font-size: 13px;
     }
     .textbox .fa-caret-down {
         font-size: 17px;
+    }
+}
+
+@media screen and (max-width: 377px) {
+    p, .options span, .questions span, .textbox p, .textbox p span {
+        font-size: 11px;
+    }
+    .choice {
+        margin: 0;
+    }
+    .choice span {
+        font-size: 10px;
+    }
+    .textbox {
+        height: 77px;
+    }
+    .textbox p {
+        padding: 0 19px;
     }
 }
