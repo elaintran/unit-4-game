@@ -65,11 +65,7 @@ $(document).ready(function() {
             $(this).addClass("player-character");
             //reassign object into character object
             characterID = $(this).children()[0].id;
-            $.each(characterList, function(index) {
-                if (characterList[index].id === characterID) {
-                    characterObject = characterList[index];
-                }
-            })
+            characterObject = findCharacter(characterID);
             //player selection pointer
             addPointer("P1", this);
             //update textbox
@@ -82,11 +78,7 @@ $(document).ready(function() {
             $("div").removeClass("choice-hover");
             //reassign object into enemy object
             enemyID = $(this).children()[0].id;
-            $.each(characterList, function(index) {
-                if (characterList[index].id === enemyID) {
-                    enemyObject = characterList[index];
-                }
-            })
+            enemyObject = findCharacter(enemyID);
             enemyName = enemyObject.name;
             //enemy selection pointer
             addPointer("CPU", this);
@@ -102,16 +94,18 @@ $(document).ready(function() {
             } else {
                 gameStart();
             }
-            //start battle
-            $(".continue").on("click", function() {
-                gameStart();
-            })
-            //refresh window
-            $(".restart").on("click", function() {
-                restart();
-            })
         }
     })
+
+    function findCharacter(id) {
+        var character = {};
+        $.each(characterList, function(index) {
+            if (characterList[index].id === id) {
+                character = characterList[index];
+            }
+        })
+        return character;
+    }
 
     function addPointer(characterType, element) {
         var pointerContainer = $("<div>").addClass("pointer-container");
@@ -129,6 +123,14 @@ $(document).ready(function() {
         //display enemy character second
         $(".enemy-character").insertAfter($(".choice").first());
         //creates battle menu
+        battleMenu();
+        //update textbox
+        $(".textbox div").remove();
+        $(".textbox p").remove();
+        $(".textbox").append("<p>* You have challenged the " + enemyName + " to a battle!</p>");
+    }
+
+    function battleMenu() {
         var options = $("<div>").addClass("options");
         var optionItems = $("<div>").addClass("option-items");
         var menuButtonOne = $("<div>").addClass("menu-button");
@@ -136,6 +138,7 @@ $(document).ready(function() {
         var attackButton = $("<span>").text("Attack");
         var restartButton = $("<span>").text("Restart");
         //check width for mobile and browser view
+        //media queries can't add/remove classes 
         function checkWidth() {
             if ($(window).width() > 606) {
                 attackButton.addClass("attack");
@@ -152,24 +155,13 @@ $(document).ready(function() {
             }
         }
         checkWidth();
-        //runs only on resize so need to call function first
+        //runs only when window is resized so need to call function first
         $(window).resize(checkWidth);
         menuButtonOne.append(attackButton);
         menuButtonTwo.append(restartButton);
         optionItems.append(menuButtonOne).append(menuButtonTwo);
         options.append(optionItems);
         $(".menu").append(options);
-        //update textbox
-        $(".textbox div").remove();
-        $(".textbox p").remove();
-        $(".textbox").append("<p>* You have challenged the " + enemyName + " to a battle!</p>");
-        //battle options
-        $(".attack").on("click", function() {
-            attack();
-        })
-        $(".restart").on("click", function() {
-            restart();
-        })
     }
 
     function attack() {
@@ -199,11 +191,6 @@ $(document).ready(function() {
         }
     }
 
-    //reloads window
-    function restart() {
-        location.reload();
-    }
-
     function win() {
         enemyHpElement.text("HP 0");
         $(".enemy-character").remove();
@@ -231,14 +218,6 @@ $(document).ready(function() {
             $(".textbox").append("<p>* You are the Tetris master!</p><p>* Would you like to play again?</p>").append(questions);     
             $(".restart").css("margin", "0 30px");
             $(".no").css("margin", "0 30px");
-            $(".restart").on("click", function() {
-                restart();
-            })
-            $(".no").on("click", function() {
-                $(".textbox p").remove();
-                $(".textbox div").remove();
-                $(".textbox").append("<p>* Congrats on winning and thank you for playing!</p>");
-            })
         }
     }
 
@@ -254,4 +233,31 @@ $(document).ready(function() {
         $(".textbox p").remove();
         $(".textbox").append("<p>* You knocked each other out!</p><p>* Press restart to try again.</p>");
     }
+
+    //reloads window
+    function restart() {
+        location.reload();
+    }
+
+    //start game
+    $(".textbox").on("click", ".continue", function() {
+        gameStart();
+    })
+
+    //refresh window
+    $(".textbox").on("click", ".restart", function() {
+        restart();
+    })
+
+    //end game option
+    $(".textbox").on("click", ".no", function() {
+        $(".textbox p").remove();
+        $(".textbox div").remove();
+        $(".textbox").append("<p>* Congrats on winning and thank you for playing!</p>");
+    })
+
+    //attack
+    $(".menu").on("click", ".attack", function() {
+        attack();
+    })
  })

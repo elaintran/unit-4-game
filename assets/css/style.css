@@ -145,12 +145,15 @@ span {
     }
 }
 
+@media screen and (max-width: 662px) {
+    .textbox p {
+        padding: 0 7%;
+    }
+}
+
 @media screen and (max-width: 650px) {
     .option-items {
         margin: 0 0 0 15%;
-    }
-    .textbox p {
-        padding: 0 7%;
     }
 }
 
