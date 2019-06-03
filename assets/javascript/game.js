@@ -240,24 +240,24 @@ $(document).ready(function() {
     }
 
     //start game
-    $(".textbox").on("click", ".continue", function() {
+    $(".menu").on("click", ".continue", function() {
         gameStart();
     })
 
     //refresh window
-    $(".textbox").on("click", ".restart", function() {
+    $(".menu").on("click", ".restart", function() {
         restart();
     })
-
-    //end game option
-    $(".textbox").on("click", ".no", function() {
-        $(".textbox p").remove();
-        $(".textbox div").remove();
-        $(".textbox").append("<p>* Congrats on winning and thank you for playing!</p>");
-    })
-
+    
     //attack
     $(".menu").on("click", ".attack", function() {
         attack();
+    })
+
+    //end game option
+    $(".menu").on("click", ".no", function() {
+        $(".textbox p").remove();
+        $(".textbox div").remove();
+        $(".textbox").append("<p>* Congrats on winning and thank you for playing!</p>");
     })
  })
