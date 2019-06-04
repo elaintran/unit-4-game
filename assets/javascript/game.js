@@ -145,13 +145,11 @@ $(document).ready(function() {
                 restartButton.addClass("restart");
                 menuButtonOne.removeClass("attack");
                 menuButtonTwo.removeClass("restart");
-                $(".textbox").css("width", "77%");
             } else {
                 attackButton.removeClass("attack");
                 restartButton.removeClass("restart");
                 menuButtonOne.addClass("attack");
                 menuButtonTwo.addClass("restart");
-                $(".textbox").css("width", "100%");
             }
         }
         checkWidth();
@@ -162,6 +160,7 @@ $(document).ready(function() {
         optionItems.append(menuButtonOne).append(menuButtonTwo);
         options.append(optionItems);
         $(".menu").append(options);
+        $(".textbox").css("width", "77%");
     }
 
     function attack() {
@@ -196,12 +195,7 @@ $(document).ready(function() {
         $(".enemy-character").remove();
         $(".options").remove();
         $(".choice").addClass("choice-hover");
-        //override the other window resize
-        function checkWidth() {
-            $(".textbox").css("width", "100%");
-        }
-        checkWidth();
-        $(window).resize(checkWidth);
+        $(".textbox").css("width", "100%");
         $(".textbox p").remove();
         //change ending message
         if (enemyRemaining > 0) {
